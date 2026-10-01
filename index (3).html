@@ -1,0 +1,3200 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Nexelium</title>
+
+<style>
+:root{
+--bg:#08090d;
+--card:#11131a;
+--card2:#171923;
+--primary:#7c5cff;
+--primary2:#6847df;
+--text:#fff;
+--muted:#9ca3af;
+--border:#252836;
+--danger:#ff4d67;
+--success:#35d07f
+}
+
+*{
+box-sizing:border-box;
+margin:0;
+padding:0
+}
+
+body{
+background:var(--bg);
+color:var(--text);
+font-family:Arial,Helvetica,sans-serif;
+min-height:100vh
+}
+
+button,input,textarea,select{
+font:inherit
+}
+
+button{
+cursor:pointer
+}
+
+.header{
+position:sticky;
+top:0;
+z-index:100;
+background:rgba(8,9,13,.96);
+backdrop-filter:blur(14px);
+border-bottom:1px solid var(--border)
+}
+
+.nav{
+max-width:1250px;
+margin:auto;
+min-height:70px;
+padding:0 20px;
+display:flex;
+align-items:center;
+gap:7px
+}
+
+.logo{
+font-size:23px;
+font-weight:900;
+margin-right:auto
+}
+
+.logo span{
+color:var(--primary)
+}
+
+.nav button{
+background:transparent;
+border:0;
+color:var(--muted);
+padding:10px 12px;
+border-radius:9px
+}
+
+.nav button:hover{
+background:var(--card2);
+color:white
+}
+
+.container{
+max-width:1250px;
+margin:auto;
+padding:30px 20px 70px
+}
+
+.page{
+display:none
+}
+
+.page.active{
+display:block
+}
+
+.hero{
+text-align:center;
+padding:65px 10px 35px
+}
+
+.hero h1{
+font-size:clamp(38px,6vw,65px);
+line-height:1;
+margin-bottom:18px
+}
+
+.hero h1 span{
+color:var(--primary)
+}
+
+.hero p{
+color:var(--muted);
+font-size:17px
+}
+
+.search{
+max-width:700px;
+margin:30px auto 0
+}
+
+.search input{
+width:100%;
+padding:17px 20px;
+background:var(--card);
+border:1px solid var(--border);
+border-radius:14px;
+color:white;
+outline:none
+}
+
+.search input:focus{
+border-color:var(--primary)
+}
+
+.stats{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:14px;
+margin:30px 0
+}
+
+.stat{
+background:var(--card);
+border:1px solid var(--border);
+border-radius:14px;
+padding:20px
+}
+
+.stat strong{
+display:block;
+font-size:28px;
+margin-bottom:5px
+}
+
+.stat span,
+.muted{
+color:var(--muted)
+}
+
+.section{
+margin-top:38px
+}
+
+.section-head{
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:10px;
+margin-bottom:16px
+}
+
+.apps-grid{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:15px
+}
+
+.app-card{
+background:var(--card);
+border:1px solid var(--border);
+border-radius:15px;
+padding:16px;
+transition:.2s
+}
+
+.app-card:hover{
+transform:translateY(-3px);
+border-color:#3b3f51
+}
+
+.app-top{
+display:flex;
+align-items:center;
+gap:12px
+}
+
+.app-icon{
+width:58px;
+height:58px;
+border-radius:14px;
+object-fit:cover;
+background:var(--card2);
+flex:none
+}
+
+.app-title{
+font-weight:800;
+white-space:nowrap;
+overflow:hidden;
+text-overflow:ellipsis
+}
+
+.app-developer{
+font-size:12px;
+color:var(--muted);
+margin-top:4px
+}
+
+.app-desc{
+font-size:13px;
+line-height:1.5;
+color:var(--muted);
+margin:14px 0;
+min-height:39px
+}
+
+.tags{
+display:flex;
+flex-wrap:wrap;
+gap:5px;
+margin-bottom:13px
+}
+
+.tag{
+font-size:11px;
+padding:4px 7px;
+border-radius:6px;
+color:#b8aaff;
+background:rgba(124,92,255,.1);
+border:1px solid rgba(124,92,255,.2)
+}
+
+.app-bottom{
+display:flex;
+gap:7px
+}
+
+.app-bottom .btn:first-child{
+flex:1
+}
+
+.btn{
+padding:11px 15px;
+border-radius:10px;
+border:1px solid var(--border);
+background:var(--card);
+color:white
+}
+
+.btn:hover{
+transform:translateY(-1px)
+}
+
+.btn-primary{
+background:var(--primary);
+border-color:var(--primary)
+}
+
+.btn-primary:hover{
+background:var(--primary2)
+}
+
+.auth-wrap{
+max-width:470px;
+margin:50px auto
+}
+
+.auth-box{
+background:var(--card);
+border:1px solid var(--border);
+border-radius:17px;
+padding:28px
+}
+
+.auth-box>p{
+color:var(--muted);
+margin:8px 0 25px
+}
+
+.field{
+margin-bottom:15px
+}
+
+.field label{
+display:block;
+font-size:13px;
+margin-bottom:7px
+}
+
+.field input,
+.field textarea,
+.field select{
+width:100%;
+padding:12px;
+background:var(--card2);
+border:1px solid var(--border);
+border-radius:9px;
+color:white;
+outline:none
+}
+
+.field textarea{
+min-height:110px;
+resize:vertical
+}
+
+.field input:focus,
+.field textarea:focus,
+.field select:focus{
+border-color:var(--primary)
+}
+
+.message{
+font-size:13px;
+margin:12px 0
+}
+
+.empty{
+background:var(--card);
+border:1px dashed var(--border);
+border-radius:14px;
+padding:35px;
+text-align:center;
+color:var(--muted)
+}
+
+.account{
+display:grid;
+grid-template-columns:280px 1fr;
+gap:20px
+}
+
+.profile,
+.panel{
+background:var(--card);
+border:1px solid var(--border);
+border-radius:16px;
+padding:22px
+}
+
+.profile{
+height:max-content;
+text-align:center
+}
+
+.avatar{
+width:80px;
+height:80px;
+border-radius:50%;
+background:var(--primary);
+display:flex;
+align-items:center;
+justify-content:center;
+margin:0 auto 15px;
+font-size:30px;
+font-weight:bold
+}
+
+.detail{
+max-width:900px;
+margin:30px auto
+}
+
+.detail-header{
+display:flex;
+align-items:center;
+gap:20px
+}
+
+.detail-icon{
+width:100px;
+height:100px;
+border-radius:22px;
+object-fit:cover;
+background:var(--card2)
+}
+
+.detail-actions{
+display:flex;
+flex-wrap:wrap;
+gap:10px;
+margin:20px 0
+}
+
+.info-grid{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:10px
+}
+
+.info{
+background:var(--card2);
+padding:14px;
+border-radius:10px
+}
+
+.info small{
+display:block;
+color:var(--muted);
+margin-bottom:5px
+}
+
+.admin-layout{
+display:grid;
+grid-template-columns:210px 1fr;
+gap:20px
+}
+
+.admin-sidebar{
+background:var(--card);
+border:1px solid var(--border);
+border-radius:15px;
+padding:12px;
+height:max-content
+}
+
+.admin-sidebar button{
+width:100%;
+text-align:left;
+background:transparent;
+border:0;
+color:var(--muted);
+padding:12px;
+border-radius:8px
+}
+
+.admin-sidebar button:hover,
+.admin-sidebar button.active{
+background:var(--card2);
+color:white
+}
+
+.admin-section{
+display:none
+}
+
+.admin-section.active{
+display:block
+}
+
+.admin-cards{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:12px;
+margin:20px 0
+}
+
+.admin-card{
+background:var(--card);
+border:1px solid var(--border);
+border-radius:13px;
+padding:18px
+}
+
+.admin-card strong{
+display:block;
+font-size:27px
+}
+
+.table-wrap{
+overflow:auto;
+border:1px solid var(--border);
+border-radius:12px
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+min-width:650px
+}
+
+th,td{
+padding:12px;
+border-bottom:1px solid var(--border);
+text-align:left;
+font-size:13px
+}
+
+th{
+color:var(--muted)
+}
+
+.toast{
+display:none;
+position:fixed;
+right:20px;
+bottom:20px;
+z-index:999;
+background:var(--card2);
+border:1px solid var(--border);
+padding:13px 17px;
+border-radius:10px;
+box-shadow:0 10px 30px #0008
+}
+
+.share-box{
+display:flex;
+gap:8px;
+margin-top:15px
+}
+
+.share-box input{
+flex:1;
+min-width:0;
+padding:11px;
+background:var(--card2);
+border:1px solid var(--border);
+border-radius:9px;
+color:white
+}
+
+hr{
+border:0;
+border-top:1px solid var(--border);
+margin:25px 0
+}
+
+/* FUNDO PRETO */
+#codeCover{
+position:fixed;
+inset:0;
+background:#000;
+z-index:999999;
+display:none
+}
+
+@media(max-width:950px){
+.apps-grid{
+grid-template-columns:repeat(3,1fr)
+}
+
+.stats,
+.admin-cards{
+grid-template-columns:repeat(2,1fr)
+}
+
+.account{
+grid-template-columns:1fr
+}
+}
+
+@media(max-width:700px){
+.nav{
+overflow-x:auto
+}
+
+.nav button{
+white-space:nowrap
+}
+
+.apps-grid{
+grid-template-columns:repeat(2,1fr)
+}
+
+.admin-layout{
+grid-template-columns:1fr
+}
+
+.info-grid{
+grid-template-columns:repeat(2,1fr)
+}
+}
+
+@media(max-width:480px){
+.apps-grid{
+grid-template-columns:1fr
+}
+
+.stats,
+.admin-cards{
+grid-template-columns:1fr
+}
+}
+</style>
+</head>
+
+<body>
+
+<div id="codeCover"></div>
+
+<header class="header">
+
+<nav class="nav">
+
+<div class="logo">
+Nexelium<span>.</span>
+</div>
+
+<button onclick="showPage('home')">
+Início
+</button>
+
+<button onclick="showPage('favorites')">
+❤️ Favoritos
+</button>
+
+<button
+id="publishNav"
+style="display:none"
+onclick="showPage('publish')">
+Publicar
+</button>
+
+<button
+id="loginNav"
+onclick="showPage('login')">
+Entrar
+</button>
+
+<button
+id="accountNav"
+style="display:none"
+onclick="showPage('account')">
+Minha conta
+</button>
+
+<button
+id="adminNav"
+style="display:none"
+onclick="showPage('admin')">
+Admin
+</button>
+
+<button
+id="logoutNav"
+style="display:none"
+onclick="logout()">
+Sair
+</button>
+
+</nav>
+
+</header>
+
+<section id="page-home" class="page active">
+
+<div class="container">
+
+<div class="hero">
+
+<h1>
+Encontre seus <span>aplicativos</span>
+</h1>
+
+<p>
+Descubra, publique e baixe aplicativos em um só lugar.
+</p>
+
+<div class="search">
+
+<input
+id="searchInput"
+placeholder="Pesquisar aplicativos..."
+oninput="searchApps">
+
+</div>
+
+</div>
+
+<div class="stats">
+
+<div class="stat">
+<strong id="statApps">0</strong>
+<span>Aplicativos</span>
+</div>
+
+<div class="stat">
+<strong id="statDownloads">0</strong>
+<span>Downloads</span>
+</div>
+
+<div class="stat">
+<strong id="statCategories">0</strong>
+<span>Categorias</span>
+</div>
+
+<div class="stat">
+<strong id="statUsers">0</strong>
+<span>Usuários</span>
+</div>
+
+</div>
+
+<div class="section">
+
+<div class="section-head">
+<h2>⭐ Destaques</h2>
+</div>
+
+<div id="featuredApps" class="apps-grid"></div>
+
+</div>
+
+<div class="section">
+
+<div class="section-head">
+<h2>🔥 Mais baixados</h2>
+</div>
+
+<div id="popularApps" class="apps-grid"></div>
+
+</div>
+
+<div class="section">
+
+<div class="section-head">
+<h2>🆕 Recentes</h2>
+</div>
+
+<div id="recentApps" class="apps-grid"></div>
+
+</div>
+
+<div class="section">
+
+<div class="section-head">
+<h2>📱 Todos os aplicativos</h2>
+</div>
+
+<div id="allApps" class="apps-grid"></div>
+
+</div>
+
+</div>
+</section>
+
+<section id="page-login" class="page">
+
+<div class="auth-wrap">
+
+<div class="auth-box">
+
+<h2>Entrar</h2>
+
+<p>Entre na sua conta Nexelium.</p>
+
+<div class="field">
+<label>E-mail</label>
+<input id="loginEmail" type="email">
+</div>
+
+<div class="field">
+<label>Senha</label>
+<input id="loginPassword" type="password">
+</div>
+
+<div id="loginMessage" class="message"></div>
+
+<button
+class="btn btn-primary"
+style="width:100%"
+onclick="login()">
+Entrar
+</button>
+
+<br><br>
+
+<button
+class="btn"
+style="width:100%"
+onclick="showPage('register')">
+Criar conta
+</button>
+
+</div>
+
+</div>
+</section>
+
+<section id="page-register" class="page">
+
+<div class="auth-wrap">
+
+<div class="auth-box">
+
+<h2>Criar conta</h2>
+
+<p>Crie sua conta gratuitamente.</p>
+
+<div class="field">
+<label>Nome</label>
+<input id="registerName">
+</div>
+
+<div class="field">
+<label>E-mail</label>
+<input id="registerEmail" type="email">
+</div>
+
+<div class="field">
+<label>Senha</label>
+<input id="registerPassword" type="password">
+</div>
+
+<div id="registerMessage" class="message"></div>
+
+<button
+class="btn btn-primary"
+style="width:100%"
+onclick="register()">
+Criar conta
+</button>
+
+<br><br>
+
+<button
+class="btn"
+style="width:100%"
+onclick="showPage('login')">
+Já tenho uma conta
+</button>
+
+</div>
+
+</div>
+</section>
+
+<section id="page-publish" class="page">
+
+<div class="container">
+
+<div
+class="auth-box"
+style="max-width:700px;margin:20px auto">
+
+<h2>📤 Publicar aplicativo</h2>
+
+<p>
+Seu aplicativo será enviado para aprovação de um administrador.
+</p>
+
+<div class="field">
+<label>Nome do aplicativo</label>
+<input id="publishName">
+</div>
+
+<div class="field">
+<label>Desenvolvedor</label>
+<input id="publishDeveloper">
+</div>
+
+<div class="field">
+<label>Versão</label>
+<input id="publishVersion" value="1.0.0">
+</div>
+
+<div class="field">
+
+<label>Categoria</label>
+
+<select id="publishCategory">
+
+<option>Jogos</option>
+<option>Ferramentas</option>
+<option>Produtividade</option>
+<option>Educação</option>
+<option>Entretenimento</option>
+<option>Redes sociais</option>
+<option>Personalização</option>
+<option>Outros</option>
+
+</select>
+
+</div>
+
+<div class="field">
+<label>URL do ícone</label>
+<input
+id="publishIcon"
+placeholder="https://...">
+</div>
+
+<div class="field">
+<label>Tags</label>
+<input
+id="publishTags"
+placeholder="android, jogo">
+</div>
+
+<div class="field">
+<label>Descrição</label>
+<textarea id="publishDescription"></textarea>
+</div>
+
+<div class="field">
+<label>Changelog</label>
+<textarea id="publishChangelog"></textarea>
+</div>
+
+<div class="field">
+<label>Tamanho</label>
+<input
+id="publishSize"
+placeholder="25 MB">
+</div>
+
+<div class="field">
+
+<label>URL direta do APK</label>
+
+<input
+id="publishApkUrl"
+type="url"
+placeholder="https://exemplo.com/aplicativo.apk">
+
+</div>
+
+<div id="publishMessage" class="message"></div>
+
+<button
+class="btn btn-primary"
+style="width:100%"
+onclick="publishApp()">
+
+🚀 Enviar para aprovação
+
+</button>
+
+</div>
+
+</div>
+</section>
+
+<section id="page-account" class="page">
+
+<div class="container">
+
+<div class="account">
+
+<div id="profileBox" class="profile"></div>
+
+<div class="panel">
+
+<div class="section-head">
+
+<h2>Meus downloads</h2>
+
+<button
+class="btn btn-primary"
+onclick="showPage('publish')">
+📤 Publicar
+</button>
+
+</div>
+
+<div id="downloadHistory"></div>
+
+</div>
+
+</div>
+
+</div>
+</section>
+
+<section id="page-favorites" class="page">
+
+<div class="container">
+
+<h1>❤️ Favoritos</h1>
+
+<br>
+
+<div id="favoritesList" class="apps-grid"></div>
+
+</div>
+</section>
+
+<section id="page-detail" class="page">
+
+<div class="container">
+
+<div id="detailContent" class="detail"></div>
+
+</div>
+</section>
+
+<section id="page-admin" class="page">
+
+<div class="container">
+
+<div class="admin-layout">
+
+<aside class="admin-sidebar">
+
+<button
+class="active"
+onclick="adminTab('dashboard',this)">
+Dashboard
+</button>
+
+<button
+onclick="adminTab('apps',this)">
+Aplicativos
+</button>
+
+<button
+onclick="adminTab('users',this)">
+Usuários
+</button>
+
+<button
+onclick="adminTab('statistics',this)">
+Estatísticas
+</button>
+
+<button
+onclick="adminTab('settings',this)">
+Configurações
+</button>
+
+</aside>
+
+<div>
+
+<div
+id="admin-dashboard"
+class="admin-section active">
+
+<h1>Dashboard</h1>
+
+<div class="admin-cards">
+
+<div class="admin-card">
+<strong id="adminApps">0</strong>
+<span class="muted">Aplicativos</span>
+</div>
+
+<div class="admin-card">
+<strong id="adminUsers">0</strong>
+<span class="muted">Usuários</span>
+</div>
+
+<div class="admin-card">
+<strong id="adminDownloads">0</strong>
+<span class="muted">Downloads</span>
+</div>
+
+<div class="admin-card">
+<strong id="adminPublished">0</strong>
+<span class="muted">Publicados</span>
+</div>
+
+</div>
+
+<div class="panel">
+
+<h2>Aplicativos recentes</h2>
+
+<br>
+
+<div id="adminRecentApps"></div>
+
+</div>
+
+</div>
+
+<div
+id="admin-apps"
+class="admin-section">
+
+<h1>Aplicativos</h1>
+
+<br>
+
+<div class="panel">
+
+<div class="field">
+
+<label>Pesquisar</label>
+
+<input
+id="adminSearch"
+oninput="filterAdminApps()">
+
+</div>
+
+<div id="adminAppList"></div>
+
+</div>
+
+<br>
+
+<div class="panel">
+
+<h2 id="adminFormTitle">
+Adicionar aplicativo
+</h2>
+
+<br>
+
+<div class="field">
+<label>Nome</label>
+<input id="adminName">
+</div>
+
+<div class="field">
+<label>Desenvolvedor</label>
+<input id="adminDeveloper">
+</div>
+
+<div class="field">
+<label>Versão</label>
+<input id="adminVersion">
+</div>
+
+<div class="field">
+<label>Tamanho</label>
+<input id="adminSize">
+</div>
+
+<div class="field">
+<label>Categoria</label>
+<input id="adminAppCategory">
+</div>
+
+<div class="field">
+<label>Ícone</label>
+<input id="adminIcon">
+</div>
+
+<div class="field">
+<label>Tags</label>
+<input id="adminTags">
+</div>
+
+<div class="field">
+<label>Descrição</label>
+<textarea id="adminDescription"></textarea>
+</div>
+
+<div class="field">
+<label>Changelog</label>
+<textarea id="adminChangelog"></textarea>
+</div>
+
+<div class="field">
+<label>APK URL</label>
+<input id="adminApkUrl">
+</div>
+
+<label>
+<input id="adminPublished" type="checkbox" checked>
+Publicado
+</label>
+
+<br><br>
+
+<label>
+<input id="adminFeatured" type="checkbox">
+Destaque
+</label>
+
+<br><br>
+
+<button
+class="btn btn-primary"
+onclick="saveAdminApp()">
+Salvar
+</button>
+
+<button
+class="btn"
+onclick="clearAdminForm()">
+Limpar
+</button>
+
+</div>
+
+</div>
+
+<div
+id="admin-users"
+class="admin-section">
+
+<h1>Usuários</h1>
+
+<br>
+
+<div class="panel">
+
+<div class="table-wrap">
+
+<table>
+
+<thead>
+
+<tr>
+<th>Nome</th>
+<th>E-mail</th>
+<th>UID</th>
+</tr>
+
+</thead>
+
+<tbody id="usersTable"></tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</div>
+
+<div
+id="admin-statistics"
+class="admin-section">
+
+<h1>Estatísticas</h1>
+
+<br>
+
+<div class="panel">
+
+<div id="statisticsContent"></div>
+
+</div>
+
+</div>
+
+<div
+id="admin-settings"
+class="admin-section">
+
+<h1>Configurações</h1>
+
+<br>
+
+<div class="panel">
+
+<p>
+<strong>Administrador:</strong>
+<span id="adminEmailDisplay"></span>
+</p>
+
+<br>
+
+<p class="muted">
+Usuários podem enviar aplicativos, mas eles precisam de aprovação.
+</p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+</div>
+</section>
+
+<div id="toast" class="toast"></div>
+
+<script type="module">
+
+import {
+initializeApp
+}
+from
+"https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+
+import {
+getAuth,
+signInWithEmailAndPassword,
+createUserWithEmailAndPassword,
+updateProfile,
+signOut,
+onAuthStateChanged
+}
+from
+"https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+
+import {
+getFirestore,
+collection,
+getDocs,
+getDoc,
+setDoc,
+addDoc,
+updateDoc,
+deleteDoc,
+doc
+}
+from
+"https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+
+
+const firebaseConfig={
+apiKey:"AIzaSyBHFYjuDiX1aAtLItYyBjcqDIyTbQg8bSo",
+authDomain:"appspace-9c2db.firebaseapp.com",
+projectId:"appspace-9c2db",
+storageBucket:"appspace-9c2db.firebasestorage.app",
+messagingSenderId:"587327100056",
+appId:"1:587327100056:web:961adb22475619bcdf6ced",
+measurementId:"G-CDF7SSQE8Y"
+};
+
+const firebaseApp=
+initializeApp(firebaseConfig);
+
+const auth=
+getAuth(firebaseApp);
+
+const db=
+getFirestore(firebaseApp);
+
+
+const ADMIN_EMAIL="admin@email.com";
+
+let currentUser=null;
+let apps=[];
+let users=[];
+let favorites=[];
+let downloadHistory=[];
+let currentAppId=null;
+
+
+function esc(value){
+
+return String(value??"")
+.replaceAll("&","&amp;")
+.replaceAll("<","&lt;")
+.replaceAll(">","&gt;")
+.replaceAll('"',"&quot;")
+.replaceAll("'","&#039;");
+
+}
+
+
+function isAdmin(){
+
+return currentUser &&
+currentUser.email===ADMIN_EMAIL;
+
+}
+
+
+window.toast=function(text){
+
+const el=
+document.getElementById("toast");
+
+el.textContent=text;
+el.style.display="block";
+
+clearTimeout(window.__toast);
+
+window.__toast=
+setTimeout(()=>{
+el.style.display="none";
+},3000);
+
+};
+
+
+window.showPage=function(page){
+
+document
+.querySelectorAll(".page")
+.forEach(x=>{
+x.classList.remove("active");
+});
+
+const target=
+document.getElementById("page-"+page);
+
+if(!target)return;
+
+target.classList.add("active");
+
+window.scrollTo({
+top:0,
+behavior:"smooth"
+});
+
+if(page==="account")
+renderAccount();
+
+if(page==="favorites")
+renderFavorites();
+
+if(page==="admin"){
+
+if(!isAdmin()){
+
+toast("Acesso negado.");
+showPage("home");
+return;
+
+}
+
+renderAdmin();
+
+}
+
+};
+
+
+function getAuthError(error){
+
+const map={
+
+"auth/invalid-email":
+"E-mail inválido.",
+
+"auth/user-not-found":
+"Usuário não encontrado.",
+
+"auth/wrong-password":
+"Senha incorreta.",
+
+"auth/invalid-credential":
+"E-mail ou senha incorretos.",
+
+"auth/email-already-in-use":
+"Este e-mail já está cadastrado.",
+
+"auth/weak-password":
+"A senha precisa ter pelo menos 6 caracteres.",
+
+"auth/operation-not-allowed":
+"Ative E-mail/Senha no Firebase Authentication.",
+
+"auth/network-request-failed":
+"Erro de conexão com o Firebase."
+
+};
+
+return map[error.code]||error.message;
+
+}
+
+
+window.login=async function(){
+
+const email=
+document.getElementById("loginEmail").value.trim();
+
+const password=
+document.getElementById("loginPassword").value;
+
+const msg=
+document.getElementById("loginMessage");
+
+if(!email||!password){
+
+msg.textContent="Preencha os campos.";
+return;
+
+}
+
+try{
+
+msg.textContent="Entrando...";
+
+await signInWithEmailAndPassword(
+auth,
+email,
+password
+);
+
+msg.style.color="var(--success)";
+msg.textContent="Login realizado!";
+
+setTimeout(()=>{
+showPage("home");
+},400);
+
+}catch(error){
+
+console.error(error);
+
+msg.style.color="var(--danger)";
+msg.textContent=getAuthError(error);
+
+}
+
+};
+
+
+window.register=async function(){
+
+const name=
+document.getElementById("registerName").value.trim();
+
+const email=
+document.getElementById("registerEmail").value.trim();
+
+const password=
+document.getElementById("registerPassword").value;
+
+const msg=
+document.getElementById("registerMessage");
+
+if(!name||!email||!password){
+
+msg.textContent="Preencha todos os campos.";
+return;
+
+}
+
+if(password.length<6){
+
+msg.textContent="A senha precisa ter pelo menos 6 caracteres.";
+return;
+
+}
+
+try{
+
+msg.textContent="Criando conta...";
+
+const credential=
+await createUserWithEmailAndPassword(
+auth,
+email,
+password
+);
+
+const user=credential.user;
+
+await updateProfile(
+user,
+{
+displayName:name
+}
+);
+
+await setDoc(
+doc(db,"users",user.uid),
+{
+uid:user.uid,
+name,
+email,
+favorites:[],
+downloadHistory:[],
+createdAt:new Date().toISOString()
+}
+);
+
+msg.style.color="var(--success)";
+msg.textContent="Conta criada!";
+
+setTimeout(()=>{
+showPage("home");
+},500);
+
+}catch(error){
+
+console.error(error);
+
+msg.style.color="var(--danger)";
+msg.textContent=getAuthError(error);
+
+}
+
+};
+
+
+window.logout=async function(){
+
+await signOut(auth);
+
+currentUser=null;
+favorites=[];
+downloadHistory=[];
+
+updateHeader();
+
+showPage("home");
+
+toast("Você saiu.");
+
+};
+
+
+onAuthStateChanged(
+auth,
+async user=>{
+
+currentUser=user;
+
+updateHeader();
+
+if(user){
+
+await loadUser();
+
+}
+
+await loadApps();
+
+await processSharedUrl();
+
+});
+
+
+function updateHeader(){
+
+const logged=!!currentUser;
+
+document.getElementById("loginNav")
+.style.display=
+logged?"none":"block";
+
+document.getElementById("accountNav")
+.style.display=
+logged?"block":"none";
+
+document.getElementById("publishNav")
+.style.display=
+logged?"block":"none";
+
+document.getElementById("logoutNav")
+.style.display=
+logged?"block":"none";
+
+document.getElementById("adminNav")
+.style.display=
+isAdmin()?"block":"none";
+
+document.getElementById("adminEmailDisplay")
+.textContent=
+currentUser?.email||"";
+
+}
+
+
+async function loadUser(){
+
+if(!currentUser)return;
+
+try{
+
+const snap=
+await getDoc(
+doc(db,"users",currentUser.uid)
+);
+
+if(snap.exists()){
+
+const data=snap.data();
+
+favorites=
+Array.isArray(data.favorites)
+?data.favorites:[];
+
+downloadHistory=
+Array.isArray(data.downloadHistory)
+?data.downloadHistory:[];
+
+}else{
+
+favorites=[];
+downloadHistory=[];
+
+await setDoc(
+doc(db,"users",currentUser.uid),
+{
+uid:currentUser.uid,
+name:currentUser.displayName||"Usuário",
+email:currentUser.email||"",
+favorites:[],
+downloadHistory:[],
+createdAt:new Date().toISOString()
+}
+);
+
+}
+
+}catch(error){
+
+console.error(error);
+
+}
+
+}
+
+
+async function saveUser(){
+
+if(!currentUser)return;
+
+await setDoc(
+doc(db,"users",currentUser.uid),
+{
+favorites,
+downloadHistory
+},
+{
+merge:true
+}
+);
+
+
+}
+
+
+async function loadApps(){
+
+try{
+
+const snap=
+await getDocs(
+collection(db,"apps")
+);
+
+apps=
+snap.docs
+.map(d=>({
+id:d.id,
+...d.data()
+}))
+.filter(a=>
+a.published===true &&
+a.approved===true
+);
+
+renderApps();
+updateStats();
+
+}catch(error){
+
+console.error("Erro apps:",error);
+
+renderApps();
+
+}
+
+}
+
+
+function createCard(app){
+
+const icon=
+app.icon||
+"https://via.placeholder.com/120?text=APK";
+
+const favorite=
+favorites.includes(app.id);
+
+return `
+
+<div class="app-card">
+
+<div class="app-top">
+
+<img
+class="app-icon"
+src="${esc(icon)}"
+onerror="this.src='https://via.placeholder.com/120?text=APK'">
+
+<div style="min-width:0">
+
+<div class="app-title">
+${esc(app.name||"Sem nome")}
+</div>
+
+<div class="app-developer">
+${esc(app.developer||"Desenvolvedor")}
+</div>
+
+</div>
+
+</div>
+
+<div class="app-desc">
+${esc(app.description||"Sem descrição.")}
+</div>
+
+<div class="tags">
+
+${
+(Array.isArray(app.tags)?app.tags:[])
+.slice(0,4)
+.map(t=>`
+<span class="tag">${esc(t)}</span>
+`)
+.join("")
+}
+
+</div>
+
+<div class="app-bottom">
+
+<button
+class="btn"
+onclick="openApp('${app.id}')">
+Ver
+</button>
+
+<button
+class="btn"
+onclick="toggleFavorite('${app.id}')">
+${favorite?"❤️":"🤍"}
+</button>
+
+</div>
+
+<div
+class="muted"
+style="font-size:11px;margin-top:8px">
+
+${Number(app.downloads||0)} downloads
+
+</div>
+
+</div>
+
+`;
+
+}
+
+
+function renderApps(){
+
+const featured=
+apps.filter(a=>a.featured).slice(0,4);
+
+const popular=
+[...apps]
+.sort(
+(a,b)=>
+Number(b.downloads||0)-
+Number(a.downloads||0)
+)
+.slice(0,4);
+
+const recent=
+[...apps]
+.sort(
+(a,b)=>
+String(b.createdAt||"")
+.localeCompare(String(a.createdAt||""))
+)
+.slice(0,4);
+
+document.getElementById("featuredApps")
+.innerHTML=
+featured.length
+?featured.map(createCard).join("")
+:`<div class="empty">Nenhum destaque.</div>`;
+
+document.getElementById("popularApps")
+.innerHTML=
+popular.length
+?popular.map(createCard).join("")
+:`<div class="empty">Nenhum aplicativo.</div>`;
+
+document.getElementById("recentApps")
+.innerHTML=
+recent.length
+?recent.map(createCard).join("")
+:`<div class="empty">Nenhum aplicativo.</div>`;
+
+document.getElementById("allApps")
+.innerHTML=
+apps.length
+?apps.map(createCard).join("")
+:`<div class="empty">Nenhum aplicativo publicado.</div>`;
+
+}
+
+
+function updateStats(){
+
+const downloads=
+apps.reduce(
+(a,b)=>a+Number(b.downloads||0),
+0
+);
+
+const categories=
+new Set(
+apps.map(a=>a.category).filter(Boolean)
+);
+
+document.getElementById("statApps")
+.textContent=apps.length;
+
+document.getElementById("statDownloads")
+.textContent=downloads;
+
+document.getElementById("statCategories")
+.textContent=categories.size;
+
+document.getElementById("statUsers")
+.textContent=users.length||"—";
+
+}
+
+
+window.searchApps=function(){
+
+const q=
+document.getElementById("searchInput")
+.value
+.toLowerCase()
+.trim();
+
+const result=
+apps.filter(a=>
+[
+a.name,
+a.developer,
+a.category,
+a.description,
+...(Array.isArray(a.tags)?a.tags:[])
+]
+.join(" ")
+.toLowerCase()
+.includes(q)
+);
+
+document.getElementById("allApps")
+.innerHTML=
+result.length
+?result.map(createCard).join("")
+:`<div class="empty">Nenhum aplicativo encontrado.</div>`;
+
+};
+
+
+window.openApp=function(id,changeUrl=true){
+
+const app=
+apps.find(a=>a.id===id);
+
+if(!app){
+
+toast("Aplicativo não encontrado.");
+return;
+
+}
+
+if(changeUrl){
+
+const url=
+new URL(window.location.href);
+
+url.search="";
+url.hash="";
+url.searchParams.set("app",id);
+
+window.history.replaceState(
+{},
+"",
+url.toString()
+);
+
+}
+
+const icon=
+app.icon||
+"https://via.placeholder.com/200?text=APK";
+
+const shareUrl=
+new URL(window.location.href);
+
+shareUrl.search="";
+shareUrl.hash="";
+shareUrl.searchParams.set("app",id);
+
+document.getElementById("detailContent")
+.innerHTML=`
+
+<div class="panel">
+
+<div class="detail-header">
+
+<img
+class="detail-icon"
+src="${esc(icon)}"
+onerror="this.src='https://via.placeholder.com/200?text=APK'">
+
+<div>
+
+<h1>${esc(app.name)}</h1>
+
+<p class="muted">
+${esc(app.developer||"Desenvolvedor")}
+</p>
+
+</div>
+
+</div>
+
+<div class="detail-actions">
+
+<button
+class="btn btn-primary"
+onclick="downloadApp('${app.id}')">
+📥 Baixar APK
+</button>
+
+<button
+class="btn"
+onclick="toggleFavorite('${app.id}')">
+${favorites.includes(app.id)
+?"❤️ Favorito"
+:"🤍 Favoritar"}
+</button>
+
+<button
+class="btn"
+onclick="shareApp('${app.id}')">
+🔗 Compartilhar
+</button>
+
+</div>
+
+<h3>🔗 Link do aplicativo</h3>
+
+<div class="share-box">
+
+<input
+id="shareUrl"
+readonly
+value="${esc(shareUrl.toString())}">
+
+<button
+class="btn btn-primary"
+onclick="copyShareUrl()">
+Copiar
+</button>
+
+</div>
+
+<div class="info-grid" style="margin-top:20px">
+
+<div class="info">
+<small>Versão</small>
+${esc(app.version||"—")}
+</div>
+
+<div class="info">
+<small>Tamanho</small>
+${esc(app.size||"—")}
+</div>
+
+<div class="info">
+<small>Categoria</small>
+${esc(app.category||"—")}
+</div>
+
+<div class="info">
+<small>Downloads</small>
+${Number(app.downloads||0)}
+</div>
+
+</div>
+
+<hr>
+
+<h2>Descrição</h2>
+
+<p
+class="muted"
+style="
+white-space:pre-wrap;
+line-height:1.7;
+margin-top:12px">
+
+${esc(app.description||"Sem descrição.")}
+
+</p>
+
+<hr>
+
+<h2>Changelog</h2>
+
+<p
+class="muted"
+style="
+white-space:pre-wrap;
+line-height:1.7;
+margin-top:12px">
+
+${esc(app.changelog||"Nenhum changelog.")}
+
+</p>
+
+</div>
+`;
+
+showPage("detail");
+
+};
+
+
+async function processSharedUrl(){
+
+const url=
+new URL(window.location.href);
+
+const appId=
+url.searchParams.get("app");
+
+if(!appId)return;
+
+if(!apps.length){
+
+return;
+
+}
+
+const app=
+apps.find(a=>a.id===appId);
+
+if(app){
+
+openApp(appId,false);
+
+}else{
+
+toast("Esse aplicativo não existe mais.");
+
+}
+
+}
+
+
+window.copyShareUrl=async function(){
+
+const input=
+document.getElementById("shareUrl");
+
+if(!input)return;
+
+try{
+
+await navigator.clipboard.writeText(
+input.value
+);
+
+toast("URL copiada!");
+
+}catch(error){
+
+input.select();
+
+document.execCommand("copy");
+
+toast("URL copiada!");
+
+}
+
+};
+
+
+window.shareApp=async function(id){
+
+const app=
+apps.find(a=>a.id===id);
+
+if(!app)return;
+
+const url=
+new URL(window.location.href);
+
+url.search="";
+url.hash="";
+url.searchParams.set("app",id);
+
+const shareData={
+title:app.name+" — Nexelium",
+text:"Confira este aplicativo no Nexelium.",
+url:url.toString()
+};
+
+try{
+
+if(navigator.share){
+
+await navigator.share(shareData);
+
+}else{
+
+await navigator.clipboard.writeText(
+url.toString()
+);
+
+toast("URL copiada!");
+
+}
+
+}catch(error){
+
+if(error.name!=="AbortError"){
+
+try{
+
+await navigator.clipboard.writeText(
+url.toString()
+);
+
+toast("URL copiada!");
+
+}catch(e){}
+
+}
+
+}
+
+};
+
+
+window.toggleFavorite=async function(id){
+
+if(!currentUser){
+
+toast("Entre na sua conta para favoritar.");
+
+showPage("login");
+
+return;
+
+}
+
+if(favorites.includes(id)){
+
+favorites=
+favorites.filter(x=>x!==id);
+
+}else{
+
+favorites.push(id);
+
+}
+
+await saveUser();
+
+renderApps();
+renderFavorites();
+
+if(
+document
+.getElementById("page-detail")
+.classList.contains("active")
+){
+
+openApp(id,false);
+
+}
+
+};
+
+
+function renderFavorites(){
+
+const list=
+apps.filter(a=>favorites.includes(a.id));
+
+document.getElementById("favoritesList")
+.innerHTML=
+list.length
+?list.map(createCard).join("")
+:`<div class="empty">Nenhum favorito.</div>`;
+
+}
+
+
+window.downloadApp=async function(id){
+
+const app=
+apps.find(a=>a.id===id);
+
+if(!app)return;
+
+if(!app.apkUrl){
+
+toast("Este aplicativo não possui APK.");
+return;
+
+}
+
+if(currentUser){
+
+if(!downloadHistory.includes(id))
+downloadHistory.push(id);
+
+await saveUser();
+
+}
+
+try{
+
+await addDoc(
+collection(db,"downloads"),
+{
+appId:id,
+userId:currentUser?.uid||null,
+createdAt:new Date().toISOString()
+}
+);
+
+}catch(error){
+
+console.error(error);
+
+}
+
+try{
+
+await updateDoc(
+doc(db,"apps",id),
+{
+downloads:Number(app.downloads||0)+1
+}
+);
+
+}catch(error){
+
+console.error(error);
+
+}
+
+window.open(
+app.apkUrl,
+"_blank",
+"noopener,noreferrer"
+);
+
+toast("Download iniciado.");
+
+await loadApps();
+
+};
+
+
+function renderAccount(){
+
+if(!currentUser){
+
+showPage("login");
+return;
+
+}
+
+const name=
+currentUser.displayName||
+currentUser.email.split("@")[0];
+
+document.getElementById("profileBox")
+.innerHTML=`
+
+<div class="avatar">
+${esc(name.charAt(0).toUpperCase())}
+</div>
+
+<h2>${esc(name)}</h2>
+
+<p class="muted">
+${esc(currentUser.email)}
+</p>
+
+<br>
+
+<button
+class="btn btn-primary"
+style="width:100%"
+onclick="showPage('publish')">
+📤 Publicar aplicativo
+</button>
+
+`;
+
+const list=
+downloadHistory
+.map(id=>apps.find(a=>a.id===id))
+.filter(Boolean);
+
+document.getElementById("downloadHistory")
+.innerHTML=
+list.length
+?list.map(createCard).join("")
+:`<div class="empty">Nenhum download.</div>`;
+
+}
+
+
+window.publishApp=async function(){
+
+if(!currentUser){
+
+showPage("login");
+return;
+
+}
+
+const name=
+document.getElementById("publishName")
+.value.trim();
+
+const apkUrl=
+document.getElementById("publishApkUrl")
+.value.trim();
+
+const message=
+document.getElementById("publishMessage");
+
+if(!name){
+
+message.textContent=
+"Digite o nome do aplicativo.";
+
+return;
+
+}
+
+if(!apkUrl){
+
+message.textContent=
+"Digite a URL do APK.";
+
+return;
+
+}
+
+if(!/^https?:\/\//i.test(apkUrl)){
+
+message.textContent=
+"A URL precisa começar com http:// ou https://";
+
+return;
+
+}
+
+try{
+
+message.style.color="var(--muted)";
+message.textContent="Enviando para aprovação...";
+
+await addDoc(
+collection(db,"apps"),
+{
+
+name,
+
+developer:
+document.getElementById("publishDeveloper")
+.value.trim()||
+currentUser.displayName||
+"Desenvolvedor",
+
+version:
+document.getElementById("publishVersion")
+.value.trim()||
+"1.0.0",
+
+size:
+document.getElementById("publishSize")
+.value.trim(),
+
+category:
+document.getElementById("publishCategory")
+.value,
+
+icon:
+document.getElementById("publishIcon")
+.value.trim(),
+
+tags:
+document.getElementById("publishTags")
+.value
+.split(",")
+.map(x=>x.trim())
+.filter(Boolean),
+
+description:
+document.getElementById("publishDescription")
+.value.trim(),
+
+changelog:
+document.getElementById("publishChangelog")
+.value.trim(),
+
+apkUrl,
+
+published:false,
+
+approved:false,
+
+featured:false,
+
+downloads:0,
+
+publisherId:currentUser.uid,
+
+publisherEmail:currentUser.email,
+
+createdAt:new Date().toISOString(),
+
+updatedAt:new Date().toISOString()
+
+}
+);
+
+message.style.color="var(--success)";
+message.textContent=
+"Aplicativo enviado! Aguarde a aprovação de um administrador.";
+
+toast("Enviado para aprovação!");
+
+await loadApps();
+
+setTimeout(()=>{
+showPage("home");
+},1000);
+
+}catch(error){
+
+console.error(error);
+
+message.style.color="var(--danger)";
+message.textContent=
+"Erro: "+error.message;
+
+}
+
+};
+
+
+window.adminTab=function(tab,button){
+
+if(!isAdmin())return;
+
+document
+.querySelectorAll(".admin-section")
+.forEach(x=>
+x.classList.remove("active")
+);
+
+document
+.querySelectorAll(".admin-sidebar button")
+.forEach(x=>
+x.classList.remove("active")
+);
+
+document
+.getElementById("admin-"+tab)
+.classList.add("active");
+
+if(button)
+button.classList.add("active");
+
+if(tab==="users")
+loadUsers();
+
+if(tab==="statistics")
+renderStatistics();
+
+if(tab==="apps")
+loadAdminApps();
+
+};
+
+
+async function loadUsers(){
+
+if(!isAdmin())return;
+
+try{
+
+const snap=
+await getDocs(
+collection(db,"users")
+);
+
+users=
+snap.docs.map(d=>({
+id:d.id,
+...d.data()
+}));
+
+renderUsers();
+updateStats();
+
+}catch(error){
+
+console.error(error);
+
+}
+
+}
+
+
+function renderUsers(){
+
+document.getElementById("usersTable")
+.innerHTML=
+users.map(u=>`
+
+<tr>
+
+<td>${esc(u.name||"—")}</td>
+
+<td>${esc(u.email||"—")}</td>
+
+<td>${esc(u.id)}</td>
+
+</tr>
+
+`).join("");
+
+}
+
+
+function renderAdmin(){
+
+const downloads=
+apps.reduce(
+(a,b)=>a+Number(b.downloads||0),
+0
+);
+
+document.getElementById("adminApps")
+.textContent=apps.length;
+
+document.getElementById("adminUsers")
+.textContent=users.length;
+
+document.getElementById("adminDownloads")
+.textContent=downloads;
+
+document.getElementById("adminPublished")
+.textContent=
+apps.filter(a=>a.published===true && a.approved===true).length;
+
+loadAdminApps();
+
+}
+
+
+async function loadAdminApps(){
+
+if(!isAdmin())return;
+
+try{
+
+const snap=
+await getDocs(
+collection(db,"apps")
+);
+
+const adminApps=
+snap.docs.map(d=>({
+id:d.id,
+...d.data()
+}));
+
+renderAdminAppList(adminApps);
+
+}catch(error){
+
+console.error(error);
+
+toast("Erro ao carregar aplicativos.");
+
+}
+
+}
+
+
+function renderAdminAppList(list){
+
+const el=
+document.getElementById("adminAppList");
+
+if(!el)return;
+
+const q=
+(
+document.getElementById("adminSearch")
+?.value||""
+)
+.toLowerCase()
+.trim();
+
+const filtered=
+list.filter(a=>
+[
+a.name,
+a.developer,
+a.category
+]
+.join(" ")
+.toLowerCase()
+.includes(q)
+);
+
+el.innerHTML=
+filtered.length
+?filtered.map(a=>`
+
+<div
+style="
+padding:15px 0;
+border-bottom:1px solid var(--border)">
+
+<strong>${esc(a.name)}</strong>
+
+<div
+class="muted"
+style="font-size:12px;margin:6px 0">
+
+${esc(a.developer||"")}
+· ${Number(a.downloads||0)} downloads
+
+</div>
+
+<div
+style="
+font-size:12px;
+margin-bottom:8px;
+color:${a.approved===true
+?"var(--success)"
+:"#ffb020"}">
+
+${a.approved===true
+?"✓ Aprovado"
+:"⏳ Aguardando aprovação"}
+
+</div>
+
+<button
+class="btn"
+onclick="approveAdminApp('${a.id}')">
+
+${a.approved===true
+?"Reprovar"
+:"✓ Aprovar"}
+
+</button>
+
+<button
+class="btn"
+onclick="editAdminApp('${a.id}')">
+Editar
+</button>
+
+<button
+class="btn"
+onclick="togglePublished('${a.id}')">
+
+${a.published===false
+?"Publicar"
+:"Ocultar"}
+
+</button>
+
+<button
+class="btn"
+onclick="toggleFeatured('${a.id}')">
+
+${a.featured
+?"Remover destaque"
+:"Destaque"}
+
+</button>
+
+<button
+class="btn"
+onclick="deleteAdminApp('${a.id}')">
+Excluir
+</button>
+
+</div>
+
+`).join("")
+:`<div class="empty">Nenhum aplicativo encontrado.</div>`;
+
+}
+
+
+window.filterAdminApps=function(){
+
+loadAdminApps();
+
+};
+
+
+window.approveAdminApp=async function(id){
+
+if(!isAdmin()){
+
+toast("Acesso negado.");
+
+return;
+
+}
+
+const snap=
+await getDoc(
+doc(db,"apps",id)
+);
+
+if(!snap.exists()){
+
+toast("Aplicativo não encontrado.");
+
+return;
+
+}
+
+const app=
+snap.data();
+
+const approved=
+app.approved===true;
+
+try{
+
+await updateDoc(
+doc(db,"apps",id),
+{
+approved:!approved,
+published:!approved,
+updatedAt:new Date().toISOString()
+}
+);
+
+await loadApps();
+
+await loadAdminApps();
+
+renderAdmin();
+
+toast(
+approved
+?"Aplicativo reprovado."
+:"Aplicativo aprovado!"
+);
+
+}catch(error){
+
+console.error(error);
+
+toast("Erro ao alterar aprovação.");
+
+}
+
+};
+
+
+window.editAdminApp=function(id){
+
+const a=
+window.__allAdminApps?.find(x=>x.id===id) ||
+apps.find(x=>x.id===id);
+
+if(!a)return;
+
+currentAppId=id;
+
+document.getElementById("adminFormTitle")
+.textContent="Editar aplicativo";
+
+document.getElementById("adminName").value=a.name||"";
+document.getElementById("adminDeveloper").value=a.developer||"";
+document.getElementById("adminVersion").value=a.version||"";
+document.getElementById("adminSize").value=a.size||"";
+document.getElementById("adminAppCategory").value=a.category||"";
+document.getElementById("adminIcon").value=a.icon||"";
+
+document.getElementById("adminTags").value=
+Array.isArray(a.tags)
+?a.tags.join(", ")
+:"";
+
+document.getElementById("adminDescription").value=
+a.description||"";
+
+document.getElementById("adminChangelog").value=
+a.changelog||"";
+
+document.getElementById("adminApkUrl").value=
+a.apkUrl||"";
+
+document.getElementById("adminPublished").checked=
+a.published===true;
+
+document.getElementById("adminFeatured").checked=
+!!a.featured;
+
+};
+
+
+window.saveAdminApp=async function(){
+
+if(!isAdmin())return;
+
+const data={
+
+name:
+document.getElementById("adminName").value.trim(),
+
+developer:
+document.getElementById("adminDeveloper").value.trim(),
+
+version:
+document.getElementById("adminVersion").value.trim(),
+
+size:
+document.getElementById("adminSize").value.trim(),
+
+category:
+document.getElementById("adminAppCategory").value.trim(),
+
+icon:
+document.getElementById("adminIcon").value.trim(),
+
+tags:
+document.getElementById("adminTags").value
+.split(",")
+.map(x=>x.trim())
+.filter(Boolean),
+
+description:
+document.getElementById("adminDescription").value.trim(),
+
+changelog:
+document.getElementById("adminChangelog").value.trim(),
+
+apkUrl:
+document.getElementById("adminApkUrl").value.trim(),
+
+published:
+document.getElementById("adminPublished").checked,
+
+approved:true,
+
+featured:
+document.getElementById("adminFeatured").checked,
+
+updatedAt:new Date().toISOString()
+
+};
+
+try{
+
+if(currentAppId){
+
+await updateDoc(
+doc(db,"apps",currentAppId),
+data
+);
+
+}else{
+
+await addDoc(
+collection(db,"apps"),
+{
+...data,
+approved:true,
+published:true,
+downloads:0,
+publisherId:currentUser.uid,
+publisherEmail:currentUser.email,
+createdAt:new Date().toISOString()
+}
+);
+
+}
+
+clearAdminForm();
+
+await loadApps();
+
+await loadAdminApps();
+
+renderAdmin();
+
+toast("Salvo!");
+
+}catch(error){
+
+console.error(error);
+
+toast("Erro ao salvar.");
+
+}
+
+};
+
+
+window.togglePublished=async function(id){
+
+if(!isAdmin())return;
+
+const snap=
+await getDoc(
+doc(db,"apps",id)
+);
+
+if(!snap.exists())return;
+
+const a=snap.data();
+
+if(a.approved!==true){
+
+toast("Aprove o aplicativo primeiro.");
+
+return;
+
+}
+
+await updateDoc(
+doc(db,"apps",id),
+{
+published:a.published===false,
+updatedAt:new Date().toISOString()
+}
+);
+
+await loadApps();
+
+await loadAdminApps();
+
+renderAdmin();
+
+};
+
+
+window.toggleFeatured=async function(id){
+
+if(!isAdmin())return;
+
+const snap=
+await getDoc(
+doc(db,"apps",id)
+);
+
+if(!snap.exists())return;
+
+const a=snap.data();
+
+await updateDoc(
+doc(db,"apps",id),
+{
+featured:!a.featured,
+updatedAt:new Date().toISOString()
+}
+);
+
+await loadApps();
+
+await loadAdminApps();
+
+renderAdmin();
+
+};
+
+
+window.deleteAdminApp=async function(id){
+
+if(!isAdmin())return;
+
+if(!confirm("Excluir este aplicativo?"))
+return;
+
+await deleteDoc(
+doc(db,"apps",id)
+);
+
+await loadApps();
+
+await loadAdminApps();
+
+renderAdmin();
+
+toast("Excluído.");
+
+};
+
+
+window.clearAdminForm=function(){
+
+currentAppId=null;
+
+document.getElementById("adminFormTitle")
+.textContent="Adicionar aplicativo";
+
+[
+"adminName",
+"adminDeveloper",
+"adminVersion",
+"adminSize",
+"adminAppCategory",
+"adminIcon",
+"adminTags",
+"adminDescription",
+"adminChangelog",
+"adminApkUrl"
+]
+.forEach(id=>{
+document.getElementById(id).value="";
+});
+
+document.getElementById("adminPublished")
+.checked=true;
+
+document.getElementById("adminFeatured")
+.checked=false;
+
+};
+
+
+function renderStatistics(){
+
+const list=
+[...apps]
+.sort(
+(a,b)=>
+Number(b.downloads||0)-
+Number(a.downloads||0)
+);
+
+document.getElementById("statisticsContent")
+.innerHTML=
+list.map((a,i)=>`
+
+<div
+style="
+display:flex;
+justify-content:space-between;
+padding:13px 0;
+border-bottom:1px solid var(--border)">
+
+<span>
+${i+1}. ${esc(a.name)}
+</span>
+
+<strong>
+${Number(a.downloads||0)}
+</strong>
+
+</div>
+
+`).join("");
+
+}
+
+
+async function refreshAdminAppsCache(){
+
+if(!isAdmin())return;
+
+try{
+
+const snap=
+await getDocs(
+collection(db,"apps")
+);
+
+window.__allAdminApps=
+snap.docs.map(d=>({
+id:d.id,
+...d.data()
+}));
+
+}catch(error){
+
+console.error(error);
+
+}
+
+}
+
+
+const originalLoadAdminApps=loadAdminApps;
+
+
+loadAdminApps=async function(){
+
+await refreshAdminAppsCache();
+
+await originalLoadAdminApps();
+
+};
+
+
+updateHeader();
+
+</script>
+
+</body>
+</html>
